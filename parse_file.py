@@ -2,7 +2,7 @@ from teams import get_best_team_combo
 from sort import sort_diff_pizzas
 
 
-filename = "c_many_ingredients.in"
+filename = "d_many_pizzas.in"
 lines = []
 with open(filename, "r") as splitfile:
     for line in [line.split() for line in splitfile]:
@@ -44,6 +44,10 @@ print("finished forming the teams")
 
 delivered_pizzas = []
 # removed = []
+
+
+# makes the op slower but with better scores???
+best_combo = best_combo[::-1]
 
 for i in best_combo:
     best_pizzas = sort_diff_pizzas(pizzas, i)
