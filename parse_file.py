@@ -2,7 +2,7 @@ from teams import get_best_team_combo
 from sort import sort_diff_pizzas
 
 
-filename = "e_many_teams.in"
+filename = "c_many_ingredients.in"
 lines = []
 with open(filename, "r") as splitfile:
     for line in [line.split() for line in splitfile]:
@@ -43,14 +43,17 @@ print("finished forming the teams")
 
 
 delivered_pizzas = []
+# removed = []
 
 for i in best_combo:
     best_pizzas = sort_diff_pizzas(pizzas, i)
-    for i in best_pizzas:
-        pizzas.remove(i)
-    # print(best_pizzas)
+    # print(i)
     delivered_pizzas.append(best_pizzas)
+    for i in best_pizzas:
+        # removed.append(all_pizzas.index(i))
+        pizzas.remove(i)
 
+# print(removed)
 print("finished dividing pizza")
 
 # print(delivered_pizzas)
@@ -58,11 +61,21 @@ print("finished dividing pizza")
 
 # write output
 file = open('sol_'+filename, 'w')
+
+# to ensure duplicate values-not-indeces are not confused
+indeces = []
 output = "{}\n".format(len(best_combo))
 
 for i in range(len(best_combo)):
     output += "{}".format(best_combo[i])
     for j in delivered_pizzas[i]:
-        output += " {}".format(all_pizzas.index(j))
+        index = all_pizzas.index(j)
+        while index in indeces:
+            # print(index, "changed to")
+            index = all_pizzas.index(j, index+1)
+            print(index)
+        output += " {}".format(index)
+        indeces.append(index)
+        # all_pizzas.remove(j)
     output += "\n"
 file.write(output)

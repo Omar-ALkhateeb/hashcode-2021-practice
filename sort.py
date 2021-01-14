@@ -8,8 +8,11 @@ pizzas = [
 
 
 def sort_diff_pizzas(pizzas, num):
-    pivot = set(pizzas[0])
+    def tall(i):
+        return len(i)
+    pivot = set(max(pizzas, key=tall))
     n = len(pizzas)
+    # print(n)
 
     def diff(i):
         return len(pivot.difference(i))
@@ -17,7 +20,7 @@ def sort_diff_pizzas(pizzas, num):
     # print(pizzas)
     desired_pizzas = []
     # print(int(n/num))
-    for i in range(0, n-1, int(n/num)):
+    for i in range(0, n, int(n/num)):
         # if len(desired_pizzas) < num:
         desired_pizzas.append(pizzas[i])
     desired_pizzas = desired_pizzas[:num]
